@@ -1,7 +1,7 @@
 -- public.city definition
      	DROP TABLE city;
         CREATE TABLE city (
-        id bigserial DEFAULT nextval('city_id_seq'::regclass),
+        id bigserial,
         "name" varchar(255) NOT NULL,
         state varchar(2) NOT NULL,
         CONSTRAINT city_pk PRIMARY KEY (id)
@@ -10,8 +10,8 @@
   -- Drop table
   	  DROP TABLE contact;
       CREATE TABLE contact (
-        id bigserial DEFAULT nextval('contact_id_seq'::regclass),
-        city_id int8 DEFAULT nextval('contact_city_seq'::regclass),
+        id bigserial,
+        city_id serial,
         "name" varchar(255) NULL,
         gender varchar(255) NULL,
         birth date NULL,
