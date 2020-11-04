@@ -28,7 +28,7 @@ public class CitySpecification implements Specification<City> {
         }
 
         if (filter.getName() != null) {
-            p.getExpressions().add(cb.like(root.get("name"), "%" + filter.getName() .toUpperCase()+ "%"));
+            p.getExpressions().add(cb.like(root.get("name"), "%" + filter.getName().toUpperCase()+ "%"));
         }
 
         if (filter.getState() != null) {

@@ -25,12 +25,12 @@ public class City implements Serializable {
 
     @NotBlank
     @Column(name = "name")
-    @ColumnTransformer(read = "UPPER(name)")
+    @ColumnTransformer(read = "UPPER(name)", write = "UPPER(?)")
     private String name;
 
     @NotBlank
     @Column(name = "state")
-    @ColumnTransformer(read = "UPPER(state)")
+    @ColumnTransformer(read = "UPPER(state)", write = "UPPER(?)")
     private String state;
 
 }

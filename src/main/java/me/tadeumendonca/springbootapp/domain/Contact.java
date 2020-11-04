@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.ColumnTransformer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -29,8 +30,12 @@ public class Contact implements Serializable {
     @JoinColumn(name = "city_id")
     private City city;
 
+    @Column(name = "name")
+    @ColumnTransformer(read = "UPPER(name)", write = "UPPER(?)")
     private String name;
 
+    @Column(name = "gender")
+    @ColumnTransformer(read = "UPPER(gender)", write = "UPPER(?)")
     private String gender;
 
     @JsonFormat(pattern="yyyy-MM-dd")

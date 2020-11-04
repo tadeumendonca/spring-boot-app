@@ -28,7 +28,7 @@ public class ContactSpecification implements Specification<Contact> {
         }
 
         if (filter.getName() != null) {
-            p.getExpressions().add(cb.like(root.get("name"), "%" + filter.getName() + "%"));
+            p.getExpressions().add(cb.like(root.get("name"), "%" + filter.getName().toUpperCase() + "%"));
         }
 
         return p;

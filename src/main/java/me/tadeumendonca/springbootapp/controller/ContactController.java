@@ -34,8 +34,13 @@ public class ContactController {
     public ResponseEntity<List<Contact>> findAll(
             @RequestParam(value="page", defaultValue="1") int pageNumber,
             @RequestParam(required=false) String name) {
+        if (!StringUtils.isEmpty(name)) {
+            return ResponseEntity.ok(contactService.findAllByName(name, pageNumber, ROW_PER_PAGE));
 
-        return ResponseEntity.ok(contactService.findAll(pageNumber, ROW_PER_PAGE));
+        }
+        else {
+            return ResponseEntity.ok(contactService.findAll(pageNumber, ROW_PER_PAGE));
+        }
     }
 
     @GetMapping(value = "/contacts/{contactId}", produces = MediaType.APPLICATION_JSON_VALUE)
