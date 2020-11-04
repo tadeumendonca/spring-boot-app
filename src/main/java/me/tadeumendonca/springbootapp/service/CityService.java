@@ -41,7 +41,17 @@ public class CityService {
 
     public List<City> findAllByName(String name, int pageNumber, int rowPerPage) {
         City filter = new City();
-        filter.setName(name);
+        filter.setName(name.toUpperCase());
+        Specification<City> spec = new CitySpecification(filter);
+
+        List<City> cities = new ArrayList<>();
+        cityRepository.findAll(spec, PageRequest.of(pageNumber - 1, rowPerPage)).forEach(cities::add);
+        return cities;
+    }
+
+    public List<City> findAllByState(String state, int pageNumber, int rowPerPage) {
+        City filter = new City();
+        filter.setState(state.toUpperCase());
         Specification<City> spec = new CitySpecification(filter);
 
         List<City> cities = new ArrayList<>();

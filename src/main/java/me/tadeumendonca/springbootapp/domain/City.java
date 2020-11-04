@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.ColumnTransformer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -23,9 +24,13 @@ public class City implements Serializable {
     private Long id;
 
     @NotBlank
+    @Column(name = "name")
+    @ColumnTransformer(read = "UPPER(name)")
     private String name;
 
     @NotBlank
+    @Column(name = "state")
+    @ColumnTransformer(read = "UPPER(state)")
     private String state;
 
 }

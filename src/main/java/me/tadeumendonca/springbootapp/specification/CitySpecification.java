@@ -28,11 +28,11 @@ public class CitySpecification implements Specification<City> {
         }
 
         if (filter.getName() != null) {
-            p.getExpressions().add(cb.like(root.get("name"), "%" + filter.getName() + "%"));
+            p.getExpressions().add(cb.like(root.get("name"), "%" + filter.getName() .toUpperCase()+ "%"));
         }
 
         if (filter.getState() != null) {
-            p.getExpressions().add(cb.like(root.get("state"), "%" + filter.getState() + "%"));
+            p.getExpressions().add(cb.like(root.get("state"), "%" + filter.getState().toUpperCase() + "%"));
         }
 
         return p;

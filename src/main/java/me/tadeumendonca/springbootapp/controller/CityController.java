@@ -40,12 +40,18 @@ public class CityController {
     @GetMapping(value = "/cities", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<City>> findAll(
             @RequestParam(value="page", defaultValue="1") int pageNumber,
-            @RequestParam(required=false) String name) {
-        if (StringUtils.isEmpty(name)) {
-            return ResponseEntity.ok(cityService.findAll(pageNumber, ROW_PER_PAGE));
+            @RequestParam(required=false) String name,
+            @RequestParam(required=false) String state)
+    {
+        if (!StringUtils.isEmpty(name)) {
+            return ResponseEntity.ok(cityService.findAllByName(name, pageNumber, ROW_PER_PAGE));
+
+        }
+        else if (!StringUtils.isEmpty(state)) {
+            return ResponseEntity.ok(cityService.findAllByState(state, pageNumber, ROW_PER_PAGE));
         }
         else {
-            return ResponseEntity.ok(cityService.findAllByName(name, pageNumber, ROW_PER_PAGE));
+            return ResponseEntity.ok(cityService.findAll(pageNumber, ROW_PER_PAGE));
         }
     }
 
