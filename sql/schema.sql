@@ -1,5 +1,5 @@
 -- public.city definition
-     	DROP TABLE city;
+     	DROP TABLE city CASCADE;
         CREATE TABLE city (
         id bigserial,
         "name" varchar(255) NOT NULL,
@@ -8,7 +8,7 @@
         );
 -- public.contact definition
   -- Drop table
-  	  DROP TABLE contact;
+  	  DROP TABLE contact CASCADE;
       CREATE TABLE contact (
         id bigserial,
         city_id serial,
