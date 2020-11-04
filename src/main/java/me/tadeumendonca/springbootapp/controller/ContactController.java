@@ -4,7 +4,6 @@ import me.tadeumendonca.springbootapp.domain.Contact;
 import me.tadeumendonca.springbootapp.exception.BadResourceException;
 import me.tadeumendonca.springbootapp.exception.ResourceAlreadyExistsException;
 import me.tadeumendonca.springbootapp.exception.ResourceNotFoundException;
-import me.tadeumendonca.springbootapp.service.CityService;
 import me.tadeumendonca.springbootapp.service.ContactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,16 +34,12 @@ public class ContactController {
     public ResponseEntity<List<Contact>> findAll(
             @RequestParam(value="page", defaultValue="1") int pageNumber,
             @RequestParam(required=false) String name) {
-        if (StringUtils.isEmpty(name)) {
-            return ResponseEntity.ok(contactService.findAll(pageNumber, ROW_PER_PAGE));
-        }
-        else {
-            return ResponseEntity.ok(contactService.findAllByName(name, pageNumber, ROW_PER_PAGE));
-        }
+
+        return ResponseEntity.ok(contactService.findAll(pageNumber, ROW_PER_PAGE));
     }
 
     @GetMapping(value = "/contacts/{contactId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Contact> findCityById(@PathVariable long contactId) {
+    public ResponseEntity<Contact> findContactById(@PathVariable long contactId) {
         try {
             Contact contact = contactService.findById(contactId);
             return ResponseEntity.ok(contact);  // return 200, with json body
@@ -54,12 +49,12 @@ public class ContactController {
     }
 
     @PostMapping(value = "/contacts")
-    public ResponseEntity<Contact> addCity(@Valid @RequestBody Contact contact)
+    public ResponseEntity<Contact> addContact(@Valid @RequestBody Contact contact)
             throws URISyntaxException {
         try {
             Contact newContact = contactService.save(contact);
             return ResponseEntity.created(new URI("/api/contacts/" + newContact.getId()))
-                    .body(newContact);
+                    .body(contact);
         } catch (ResourceAlreadyExistsException ex) {
             // log exception first, then return Conflict (409)
             logger.error(ex.getMessage());
@@ -72,7 +67,7 @@ public class ContactController {
     }
 
     @PutMapping(value = "/contacts/{contactId}")
-    public ResponseEntity<Contact> updateCity(@Valid @RequestBody Contact contact,
+    public ResponseEntity<Contact> updateContact(@Valid @RequestBody Contact contact,
                                                  @PathVariable long contactId) {
         try {
             contact.setId(contactId);
@@ -90,7 +85,7 @@ public class ContactController {
     }
 
     @DeleteMapping(path="/contacts/{contactId}")
-    public ResponseEntity<Void> deleteCityById(@PathVariable long contactId) {
+    public ResponseEntity<Void> deleteContactById(@PathVariable long contactId) {
         try {
             contactService.deleteById(contactId);
             return ResponseEntity.ok().build();
