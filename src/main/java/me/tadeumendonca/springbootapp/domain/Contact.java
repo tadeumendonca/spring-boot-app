@@ -1,5 +1,6 @@
 package me.tadeumendonca.springbootapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -23,12 +25,17 @@ public class Contact implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "city_id")
     private City city;
 
     private String name;
+
     private String gender;
-    private Date birth;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate birth;
+
     private short age;
 
 }
