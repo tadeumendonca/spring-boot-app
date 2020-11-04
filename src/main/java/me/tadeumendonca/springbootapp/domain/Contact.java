@@ -24,8 +24,7 @@ public class Contact implements Serializable {
 
     @NotBlank
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @JoinTable(name = "city",joinColumns = {@JoinColumn(name = "city_id")},inverseJoinColumns = {@JoinColumn(name = "id")})
-    private Long cityId;
+    private City city;
 
     private String name;
     private String gender;
